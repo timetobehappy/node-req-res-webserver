@@ -15,23 +15,30 @@ const hbs = require('hbs');
 //     .alias('help', 'h')
 //     .argv;
 
-var getResponse = () => {
-  var reqUrl = "http://www.google.com";
 
-  var responseHeaders;
-   axios.get(reqUrl).then((response)=> {
-    responseHeaders = JSON.stringify(response.headers);
+var getResponse = (callback) => {
+    var reqUrl = "http://www.sears.com";
+
+    //setTimeout(() => {
+
+
+    //var responseHeaders;
+    axios.head(reqUrl).then((response) => {
+
+        var responseHeaders = JSON.stringify(response.headers, undefined, 2);
+        callback(responseHeaders);
+        // hbs.registerHelper('getResponseHeaders', ()=> {
+        //   return responseHeaders;
+        // })
+    }).catch((e) => {
+        console.log(e);
+        callback("Unable to get the headers...")
+        //return e;
+    });
+
+    //}, 5000);
     //console.log(responseHeaders);
-    hbs.registerHelper('getResponseHeaders', ()=> {
-      return responseHeaders;
-    })
-  }).catch((e)=>{
-    console.log(e);
-    //return e;
-  });
-
-console.log(responseHeaders);
-  return JSON.stringify(responseHeaders);
+    return; // JSON.stringify(responseHeaders);
 
 
 
