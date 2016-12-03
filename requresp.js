@@ -2,6 +2,9 @@
 const axios = require('axios');
 const hbs = require('hbs');
 
+
+const fs = require("fs");
+
 // const argv = yargs
 //     .options({
 //         u: {
@@ -32,7 +35,12 @@ var getResponse = (reqUrl, callback) => {
     //var responseHeaders;
     axios.head(reqUrl).then((response) => {
 
-        console.log(response);
+        //console.log(response);
+        // fs.appendFile('server.log', JSON.stringify(response,undefined, 2), (err) => {
+        //     if (err) {
+        //         console.log('Unable to append to server.log.')
+        //     }
+        // })
         callback(response);
         // hbs.registerHelper('getResponseHeaders', ()=> {
         //   return responseHeaders;

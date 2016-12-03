@@ -87,14 +87,15 @@ app.get('/request', (req, res) => {
     //var url=req.query.url;
 
     //if(!url)
-    var reqUrl = "http://www.google.com";
+    //var reqUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=1301%20lombard%20street%20philadelphia";
+    var reqUrl = "https://www.sears.com";
 
     requresp.getResponse(reqUrl, (response) => {
         //console.log(`Response header from inside app.get : ${responseHeaders}`);
         //console.log(`\n******${moment().format('MMMM Do YYYY, h:mm:ss a')}**********`)
-        //console.log(JSON.stringify(response, undefined, 2));
+        //console.log(response);
         resHeaders = JSON.stringify(response.headers, undefined, 2);
-        //reqHeaders = JSON.stringify(response.url.headers, undefined, 2);
+        reqHeaders = JSON.stringify(response.config.headers, undefined, 2);
         res.render('request.hbs', {
             pageTitle: 'Request Page'
                 //responseHeaders
