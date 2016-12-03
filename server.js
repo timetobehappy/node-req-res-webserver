@@ -11,6 +11,7 @@ const fs = require('fs');
 const requresp = require('./requresp.js')
 const PORT = 3000;
 var resHeaders;
+var reqHeaders;
 
 
 var tempObj = {
@@ -35,6 +36,11 @@ hbs.registerHelper('toUpperCaseHelper', (text) => {
 
 hbs.registerHelper('getResponseHeaders', () => {
     return resHeaders;
+
+})
+
+hbs.registerHelper('getRequestHeaders', () => {
+    return reqHeaders;
 
 })
 
@@ -77,10 +83,18 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/request', (req, res) => {
-    requresp.getResponse((responseHeaders) => {
+    //console.log(req.query.url);
+    //var url=req.query.url;
+
+    //if(!url)
+    var reqUrl = "http://www.google.com";
+
+    requresp.getResponse(reqUrl, (response) => {
         //console.log(`Response header from inside app.get : ${responseHeaders}`);
         //console.log(`\n******${moment().format('MMMM Do YYYY, h:mm:ss a')}**********`)
-        resHeaders = responseHeaders;
+        //console.log(JSON.stringify(response, undefined, 2));
+        resHeaders = JSON.stringify(response.headers, undefined, 2);
+        //reqHeaders = JSON.stringify(response.url.headers, undefined, 2);
         res.render('request.hbs', {
             pageTitle: 'Request Page'
                 //responseHeaders
@@ -88,6 +102,19 @@ app.get('/request', (req, res) => {
     });
 })
 
+
+// app.get('/request/:url', (req, res) => {
+//     requresp.getResponse((responseHeaders) => {
+//         //console.log(`Response header from inside app.get : ${responseHeaders}`);
+//         //console.log(`\n******${moment().format('MMMM Do YYYY, h:mm:ss a')}**********`)
+//         resHeaders = responseHeaders;
+//         res.render('request.hbs', {
+//             pageTitle: 'Request Page'
+//                 //responseHeaders
+//         });
+//     });
+// })
+//
 app.get('/json', (req, res) => {
     res.render('json.hbs', {
         pageTitle: 'Json Page',

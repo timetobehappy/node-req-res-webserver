@@ -16,24 +16,31 @@ const hbs = require('hbs');
 //     .argv;
 
 
-var getResponse = (callback) => {
-    var reqUrl = "http://www.sears.com";
+
+
+var getResponse = (reqUrl, callback) => {
+  var requestOptions = {
+    url: reqUrl,
+    headers: {'X-Requested-With': 'XMLHttpRequest'}
+  };
+
+    //var reqUrl = "http://www.sears.com";
 
     //setTimeout(() => {
-
+    //console.log("url is ", url);
 
     //var responseHeaders;
     axios.head(reqUrl).then((response) => {
 
-        var responseHeaders = JSON.stringify(response.headers, undefined, 2);
-        callback(responseHeaders);
+        console.log(response);
+        callback(response);
         // hbs.registerHelper('getResponseHeaders', ()=> {
         //   return responseHeaders;
         // })
     }).catch((e) => {
         console.log(e);
         callback("Unable to get the headers...")
-        //return e;
+            //return e;
     });
 
     //}, 5000);

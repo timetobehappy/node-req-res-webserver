@@ -11,8 +11,11 @@
 
 <body>
     {{> header}}
-    <p>Response Header</p>
-    <p>{{getResponseHeaders}}</p>
+    <p><b>Response Headers</b></p>
+    <pre id="json">{{getResponseHeaders}}</pre>
+    <!--<p>{{getResponseHeaders}}</p>-->
+    <p><b>Request Headers</b></p>
+    <pre id="json">{{getRequestHeaders}}</pre>
 
     {{> footer}}
 </body>
