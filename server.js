@@ -49,7 +49,7 @@ hbs.registerHelper('json', JSON.stringify);
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 app.use((req, res, next) => {
-  next();
+
     var now = new Date().toString();
     var log = `${now}: ${req.method} ${req.url} `;
     //${req.headers['user-agent']}
@@ -59,6 +59,17 @@ app.use((req, res, next) => {
             console.log('Unable to append to server.log.')
         }
     })
+
+    next();
+});
+
+
+app.use((req, res, next) => {
+
+    res.render('maintenance.hbs', {
+        pageTitle: 'Maintenance Page',
+        welcomeMessage: 'Thw site is under maintenance!!!!.'
+    });
 
 
 });
@@ -88,10 +99,10 @@ app.get('/request', (req, res) => {
     //console.log(req.query.url);
     //var reqUrl;
     var requestOptions = {
-      reqUrl: req.query.url,
-      reqUa: req.headers['user-agent']
-    }
-    //var reqUrl = req.query.url;
+            reqUrl: req.query.url,
+            reqUa: req.headers['user-agent']
+        }
+        //var reqUrl = req.query.url;
 
     if (!requestOptions.reqUrl)
         requestOptions.reqUrl = "http://www.sears.com";
