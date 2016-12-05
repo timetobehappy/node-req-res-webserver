@@ -84,11 +84,13 @@ app.get('/about', (req, res) => {
 
 app.get('/request', (req, res) => {
     //console.log(req.query.url);
-    //var url=req.query.url;
+    //var reqUrl;
+    var reqUrl = req.query.url;
 
-    //if(!url)
-    //var reqUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=1301%20lombard%20street%20philadelphia";
-    var reqUrl = "https://www.sears.com";
+    if (!reqUrl)
+        reqUrl = "http://www.washingtonpost.com";
+
+    //reqUrl = "https://www.sears.com";
 
     requresp.getResponse(reqUrl, (response) => {
         //console.log(`Response header from inside app.get : ${responseHeaders}`);
