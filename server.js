@@ -9,7 +9,7 @@ const fs = require('fs');
 
 //Custome modules
 const requresp = require('./requresp.js')
-const PORT = 3000;
+const port = process.env.PORT || 3000;
 var resHeaders;
 var reqHeaders;
 
@@ -127,6 +127,6 @@ app.get('/json', (req, res) => {
 })
 
 
-app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}!`)
+app.listen(port, () => {
+    console.log(`Listening on port ${port}!`)
 })
