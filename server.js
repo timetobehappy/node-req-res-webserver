@@ -46,11 +46,13 @@ hbs.registerHelper('getRequestHeaders', () => {
 
 hbs.registerHelper('json', JSON.stringify);
 
-hbs.registerPartials(path.join(__dirname, '/views/partials'));
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 app.use((req, res, next) => {
+  next();
     var now = new Date().toString();
-    var log = `${now}: ${req.method} ${req.url}`;
+    var log = `${now}: ${req.method} ${req.url} `;
+    //${req.headers['user-agent']}
     console.log(log);
     fs.appendFile('server.log', log + '\n', (err) => {
         if (err) {
@@ -58,7 +60,7 @@ app.use((req, res, next) => {
         }
     })
 
-    next();
+
 });
 
 app.set('view engine', 'hbs');
@@ -85,14 +87,19 @@ app.get('/about', (req, res) => {
 app.get('/request', (req, res) => {
     //console.log(req.query.url);
     //var reqUrl;
-    var reqUrl = req.query.url;
+    var requestOptions = {
+      reqUrl: req.query.url,
+      reqUa: req.headers['user-agent']
+    }
+    //var reqUrl = req.query.url;
 
-    if (!reqUrl)
-        reqUrl = "http://www.washingtonpost.com";
+    if (!requestOptions.reqUrl)
+        requestOptions.reqUrl = "http://www.sears.com";
 
     //reqUrl = "https://www.sears.com";
+    console.log(`Request URL inside app.get is ${requestOptions.reqUrl}`)
 
-    requresp.getResponse(reqUrl).then((response) => {
+    requresp.getResponse(requestOptions).then((response) => {
         resHeaders = JSON.stringify(response.headers, undefined, 2);
         reqHeaders = JSON.stringify(response.config.headers, undefined, 2);
         res.render('request.hbs', {

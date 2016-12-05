@@ -21,23 +21,23 @@ const fs = require("fs");
 
 
 
-var getResponse = (reqUrl) => {
+var getResponse = (requestOptions) => {
 
     return new Promise((resolve, reject) => {
-        var requestOptions = {
-            url: reqUrl,
+        var config = {
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
+                'User-Agent': requestOptions.reqUa
             }
         };
 
         //var reqUrl = "http://www.sears.com";
 
         //setTimeout(() => {
-        //console.log("url is ", url);
+        //console.log("url is ", requestOptions.url);
+        console.log(typeof requestOptions.reqUrl);
 
         //var responseHeaders;
-        axios.head(reqUrl).then((response) => {
+        axios.head(requestOptions.reqUrl, config).then((response) => {
 
             //console.log(response);
             // fs.appendFile('server.log', JSON.stringify(response,undefined, 2), (err) => {
