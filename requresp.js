@@ -21,39 +21,46 @@ const fs = require("fs");
 
 
 
-var getResponse = (reqUrl, callback) => {
-  var requestOptions = {
-    url: reqUrl,
-    headers: {'X-Requested-With': 'XMLHttpRequest'}
-  };
+var getResponse = (reqUrl) => {
 
-    //var reqUrl = "http://www.sears.com";
+    return new Promise((resolve, reject) => {
+        var requestOptions = {
+            url: reqUrl,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        };
 
-    //setTimeout(() => {
-    //console.log("url is ", url);
+        //var reqUrl = "http://www.sears.com";
 
-    //var responseHeaders;
-    axios.head(reqUrl).then((response) => {
+        //setTimeout(() => {
+        //console.log("url is ", url);
 
-        //console.log(response);
-        // fs.appendFile('server.log', JSON.stringify(response,undefined, 2), (err) => {
-        //     if (err) {
-        //         console.log('Unable to append to server.log.')
-        //     }
-        // })
-        callback(response);
-        // hbs.registerHelper('getResponseHeaders', ()=> {
-        //   return responseHeaders;
-        // })
-    }).catch((e) => {
-        console.log(e);
-        callback("Unable to get the headers...")
-            //return e;
+        //var responseHeaders;
+        axios.head(reqUrl).then((response) => {
+
+            //console.log(response);
+            // fs.appendFile('server.log', JSON.stringify(response,undefined, 2), (err) => {
+            //     if (err) {
+            //         console.log('Unable to append to server.log.')
+            //     }
+            // })
+            resolve(response);
+            // hbs.registerHelper('getResponseHeaders', ()=> {
+            //   return responseHeaders;
+            // })
+        }).catch((e) => {
+            console.log(e);
+            reject("Unable to get the headers...")
+                //return e;
+        });
+
     });
+
 
     //}, 5000);
     //console.log(responseHeaders);
-    return; // JSON.stringify(responseHeaders);
+    // JSON.stringify(responseHeaders);
 
 
 

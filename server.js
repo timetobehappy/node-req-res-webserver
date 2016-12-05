@@ -92,17 +92,16 @@ app.get('/request', (req, res) => {
 
     //reqUrl = "https://www.sears.com";
 
-    requresp.getResponse(reqUrl, (response) => {
-        //console.log(`Response header from inside app.get : ${responseHeaders}`);
-        //console.log(`\n******${moment().format('MMMM Do YYYY, h:mm:ss a')}**********`)
-        //console.log(response);
+    requresp.getResponse(reqUrl).then((response) => {
         resHeaders = JSON.stringify(response.headers, undefined, 2);
         reqHeaders = JSON.stringify(response.config.headers, undefined, 2);
         res.render('request.hbs', {
             pageTitle: 'Request Page'
                 //responseHeaders
         });
-    });
+    }, (errorMessage) => {
+        console.log(errorMessage);
+    })
 })
 
 
