@@ -63,16 +63,16 @@ app.use((req, res, next) => {
     next();
 });
 
-
-app.use((req, res, next) => {
-
-    res.render('maintenance.hbs', {
-        pageTitle: 'Maintenance Page',
-        welcomeMessage: 'Thw site is under maintenance!!!!.'
-    });
-
-
-});
+//Use below when doing maintenance
+// app.use((req, res, next) => {
+//
+//     res.render('maintenance.hbs', {
+//         pageTitle: 'Maintenance Page',
+//         welcomeMessage: 'Thw site is under maintenance!!!!.'
+//     });
+//
+//
+// });
 
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
